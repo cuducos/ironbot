@@ -26,7 +26,7 @@ def list_events() -> None:
 @app.command()
 def start_list(event_number: int) -> None:
     data = ironbot.load(ironbot.Title.START_LIST)
-    print(   ironbot.start_list(data, event_number))
+    print(ironbot.start_list(data, event_number))
 
 
 if __name__ == "__main__":
