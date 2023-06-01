@@ -1,4 +1,0 @@
-black
-ipython
-mypy
-types-beautifulsoup4

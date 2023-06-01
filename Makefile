@@ -1,5 +1,5 @@
 type-check:
-	mypy **/*.py
+	poetry run mypy **/*.py
 
 auto-format:
-	black --check .
+	poetry run black --check .
