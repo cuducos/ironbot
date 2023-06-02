@@ -44,21 +44,19 @@ class Event:
         return "\t".join(fields)
 
 
+@dataclass
 class EventParser:
-    def __init__(self, text):
-        self.lines = tuple(line for line in text.split("\n") if line.strip())
+    text: str
 
     @staticmethod
     def to_date(line: str) -> date:
         return datetime.strptime(line, "%m/%d/%Y").date()
 
     def __iter__(self) -> Iterator[Event]:
+        lines = tuple(line for line in self.text.split("\n") if line.strip())
         next_idx = 0
-        for idx, line in enumerate(self.lines):
+        for idx, line in enumerate(lines):
             if idx < next_idx:
-                continue
-
-            if not line.strip():
                 continue
 
             try:
@@ -67,7 +65,7 @@ class EventParser:
                 continue
 
             next_idx = idx + 5
-            yield Event(when, *self.lines[idx + 1 : next_idx + 1])
+            yield Event(when, *lines[idx + 1 : next_idx + 1])
 
 
 def load(title: Title) -> BeautifulSoup:
