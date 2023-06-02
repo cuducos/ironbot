@@ -2,7 +2,7 @@
 
 ## Requirements
 
- `ironbot` depends on Python 3.9 or newer, and on `pdftotext` which [requires `poppler`](https://github.com/jalan/pdftotext#os-dependencies).
+ `ironbot` depends on Python 3.9 or newer, and on [Camelot, which requires `ghostscript`](https://camelot-py.readthedocs.io/en/master/user/install-deps.html).
 
 ## Install
 
@@ -26,7 +26,7 @@ Options:
 
 Commands:
   calendar     List the details of the upcoming Ironman professional races.
-  start-list   Gets the URL to the PDF containing the start list for an...
+  start-list   Gets the start list for an Ironman professional race (use...
   start-lists  List upcoming Ironman professional races with start list...
 ```
 
@@ -52,11 +52,14 @@ Choose one of the followign events to use with `start-list` command:
  …
 ```
 
-#### Get the URL to the start list of an event
+#### Get the start list of an event
 
 ```console
 $ ironbot start-list 4
-https://files.constantcontact.com/a202847d001/81c60c53-85dd-45f9-b6aa-dd0fda086862.pdf
+1	Daniela Ryf	CHE (Switzerland)
+3	Ashleigh Gentle	AUS (Australia)
+4	Anne Reischmann	DEU (Germany)
+…
 ```
 
 ## Contributing

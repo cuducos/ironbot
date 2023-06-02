@@ -1,16 +1,34 @@
 [tool.poetry]
 name = "ironbot"
-version = "0.0.1"
+version = "0.0.2"
 description = "CLI to get information about Ironman professional races"
 authors = ["Eduardo Cuducos <4732915+cuducos@users.noreply.github.com>"]
-license = "GPL-3"
+license = "GPLv3"
 readme = "README.md"
+repository = "https://github.com/cuducos/ironbot/"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Utilities",
+]
+keywords = [
+    "triathlon",
+    "Ironamn",
+    "Professional triathletes",
+    "Professional triathlon races",
+]
+packages = [
+    { include = "ironbot" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 beautifulsoup4 = "^4.12.2"
-httpx = "^0.24.1"
-pdftotext = "^2.2.2"
+camelot-py = "^0.11.0"
 typer = "^0.9.0"
 
 [tool.poetry.group.dev.dependencies]
