@@ -7,7 +7,7 @@ from typing import Iterator
 from camelot import read_pdf  # type: ignore
 
 
-CATEGORY = r"^[MF](PRO)?$"
+CATEGORY = r"^[MWF](PRO)?$"
 
 
 class Title(Enum):
@@ -55,9 +55,9 @@ class Athlete:
         fields = {key: "" for key in cls.__annotations__}
 
         for field in (field.strip() for field in row):
-            if field.isnumeric():
+            if field.isnumeric() and not fields["bib"]:
                 fields["bib"] = field
-            elif match(CATEGORY, field.upper()):
+            elif match(CATEGORY, field.upper()) and not fields["category"]:
                 fields["category"] = field
             elif not fields["last_name"]:
                 fields["last_name"] = field

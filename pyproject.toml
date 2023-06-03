@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ironbot"
-version = "0.0.2"
+version = "0.0.3"
 description = "CLI to get information about Ironman professional races"
 authors = ["Eduardo Cuducos <4732915+cuducos@users.noreply.github.com>"]
 license = "GPLv3"
