@@ -31,6 +31,13 @@ beautifulsoup4 = "^4.12.2"
 camelot-py = "^0.11.0"
 typer = "^0.9.0"
 
+# we could use camelot-py[base] but that would inject problematic pdftopng, so
+# let's add the other base packages manually. See, for example:
+# https://github.com/vinayak-mehta/pdftopng/issues/11
+# https://github.com/vinayak-mehta/pdftopng/issues/8
+ghostscript = "^0.7"
+opencv-python = "^4.7.0.72"
+
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 ipython = "^8.13.2"
