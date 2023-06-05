@@ -1,4 +1,4 @@
-# `ironbot`
+# `ironbot` [![Tests](https://github.com/cuducos/ironbot/actions/workflows/tests.yml/badge.svg)](https://github.com/cuducos/ironbot/actions/workflows/tests.yml)
 
 ## Requirements
 
