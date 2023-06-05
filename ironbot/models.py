@@ -28,7 +28,7 @@ class Event:
     deadline: str
 
     def __post_init__(self) -> None:
-        self.date = datetime.strptime(self.when, "%m/%d/%Y")
+        self.date = datetime.strptime(self.when, "%m/%d/%Y").date()
 
     def __str__(self) -> str:
         fields = (

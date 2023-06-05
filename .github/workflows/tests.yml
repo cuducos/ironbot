@@ -1,4 +1,4 @@
-name: Auto-format
+name: Tests
 
 on:
   push:
@@ -26,5 +26,5 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install poetry
         poetry install
-    - name: Black
-      run: poetry run black . --check
+    - name: pytest
+      run: poetry run pytest

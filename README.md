@@ -64,9 +64,8 @@ $ ironbot start-list 4
 
 ## Contributing
 
-Make sure that both checks pass:
+Make sure that all tests pass:
 
 ```console
-$ poetry run mypy **/*.py
-$ poetry black --check .
+$ poetry run pytest
 ```

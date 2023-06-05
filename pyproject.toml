@@ -25,6 +25,9 @@ packages = [
     { include = "ironbot" },
 ]
 
+[tool.poetry.scripts]
+ironbot = "ironbot.__main__:app"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 beautifulsoup4 = "^4.12.2"
@@ -39,13 +42,14 @@ ghostscript = "^0.7"
 opencv-python = "^4.7.0.72"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
 ipython = "^8.13.2"
-mypy = "^1.3.0"
+pytest = "^7.3.1"
+pytest-black = "^0.3.12"
+pytest-mypy = "^0.10.3"
 types-beautifulsoup4 = "^4.12.0.5"
 
-[tool.poetry.scripts]
-ironbot = "ironbot.__main__:app"
+[tool.pytest.ini_options]
+addopts = "--black --mypy"
 
 [build-system]
 requires = ["poetry-core"]
