@@ -1,4 +1,4 @@
-name: Type check
+name: Auto-format
 
 on:
   push:
@@ -26,5 +26,5 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install poetry
         poetry install
-    - name: MyPy
-      run: poetry run mypy **/*.py
+    - name: Black
+      run: poetry run black . --check
