@@ -30,8 +30,10 @@ ironbot = "ironbot.__main__:app"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+alembic = "^1.11.1"
 beautifulsoup4 = "^4.12.2"
 camelot-py = "^0.11.0"
+sqlalchemy = "^2.0.15"
 typer = "^0.9.0"
 
 # we could use camelot-py[base] but that would inject problematic pdftopng, so

@@ -25,7 +25,7 @@ def test_event_init():
         deadline="TBD",
     )
 
-    assert event.date == date(2023, 8, 20)
+    assert event.when == date(2023, 8, 20)
     assert str(event) == "2023-08-20\tIronman Mont-Tremblant\t50k\t2\tOpen\tTBD"
 
 

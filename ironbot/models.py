@@ -1,10 +1,10 @@
-from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from re import match
 from typing import Iterator
 
-from camelot import read_pdf  # type: ignore
+from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy.orm import DeclarativeBase
 
 
 CATEGORY = r"^[MWF](PRO)?$"
@@ -18,41 +18,55 @@ class Title(Enum):
         return self.value.lower() == other.strip().lower()
 
 
-@dataclass
-class Event:
-    when: str
-    name: str
-    prize: str
-    slots: str
-    registration: str
-    deadline: str
+class Base(DeclarativeBase):
+    pass
 
-    def __post_init__(self) -> None:
-        self.date = datetime.strptime(self.when, "%m/%d/%Y").date()
+
+class Event(Base):
+    __tablename__ = "events"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    when = Column(Date)
+    prize = Column(String)
+    slots = Column(String)
+    registration = Column(String)
+    deadline = Column(String)
+
+    def __init__(self, *args, **kwargs):
+        if kwargs.get("when"):
+            kwargs["when"] = datetime.strptime(kwargs["when"], "%m/%d/%Y").date()
+
+        return super().__init__(*args, **kwargs)
 
     def __str__(self) -> str:
         fields = (
-            self.date.strftime("%Y-%m-%d"),
+            self.when.strftime("%Y-%m-%d"),
             self.name,
             self.prize,
             self.slots,
             self.registration,
             self.deadline,
         )
-        return "\t".join(fields)
+        return "\t".join(str(field) for field in fields)
+
+    def __repr__(self) -> str:
+        return str(self)
 
 
-@dataclass
-class Athlete:
-    bib: str
-    first_name: str
-    last_name: str
-    country: str
-    category: str
+class Athlete(Base):
+    __tablename__ = "athletes"
+
+    id = Column(Integer, primary_key=True)
+    bib = Column(String)
+    first_name = Column(String)
+    last_name = Column(String)
+    country = Column(String)
+    category = Column(String)
 
     @classmethod
     def from_row(cls, row: Iterator[str]) -> "Athlete":
-        fields = {key: "" for key in cls.__annotations__}
+        fields = {column.name: "" for column in cls.__table__.columns}
 
         for field in (field.strip() for field in row):
             if field.isnumeric() and not fields["bib"]:
@@ -77,4 +91,7 @@ class Athlete:
 
     def __str__(self) -> str:
         fields = (self.bib, self.category, self.name, self.country)
-        return "\t".join(field for field in fields if field)
+        return "\t".join(str(field) for field in fields if field)
+
+    def __repr__(self) -> str:
+        return str(self)
