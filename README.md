@@ -15,15 +15,6 @@ $ pip install ironbot
 ```console
 $ ironbot --help
 Usage: ironbot [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  --install-completion [bash|zsh|fish|powershell|pwsh]
-                                  Install completion for the specified shell.
-  --show-completion [bash|zsh|fish|powershell|pwsh]
-                                  Show completion for the specified shell, to
-                                  copy it or customize the installation.
-  --help                          Show this message and exit.
-
 Commands:
   calendar     List the details of the upcoming Ironman professional races.
   start-list   Gets the start list for an Ironman professional race (use...
@@ -60,6 +51,14 @@ $ ironbot start-list 4
 3	Ashleigh Gentle	AUS (Australia)
 4	Anne Reischmann	DEU (Germany)
 …
+```
+
+#### Save all data in a database
+
+Requires an environment variable `DATABASE_URL` with a valid [SQLAlchemy connection string](https://docs.sqlalchemy.org/en/14/core/engines.html#database-urls).
+
+```console
+$ ironbot db init
 ```
 
 ## Contributing

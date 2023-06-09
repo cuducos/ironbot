@@ -64,7 +64,7 @@ class Athlete(Base):
 
     @classmethod
     def from_row(cls, row: Iterator[str]) -> "Athlete":
-        fields = {column.name: "" for column in cls.__table__.columns}
+        fields = {col.name: "" for col in cls.__table__.columns if col.name != "id"}
 
         for field in (field.strip() for field in row):
             if field.isnumeric() and not fields["bib"]:
