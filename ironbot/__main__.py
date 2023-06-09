@@ -63,3 +63,17 @@ def init() -> None:
         print(f"==> Saving start list for {name}…")
         count = db.save_athletes(scrappers.start_list(data, number))
         print(f"    Saved {count} athletes.")
+
+
+@db.command()
+def migration(name: str) -> None:
+    """Create a new migration."""
+    settings = Settings()
+    alembic.revision(settings.alembic, name, autogenerate=True)
+
+
+@db.command()
+def migrate(version: str = "head") -> None:
+    """Runs pending migration."""
+    settings = Settings()
+    alembic.upgrade(settings.alembic, version)
