@@ -34,9 +34,7 @@ class Event(Base):
     deadline = Column(String)
 
     def __init__(self, *args, **kwargs):
-        if kwargs.get("when"):
-            kwargs["when"] = datetime.strptime(kwargs["when"], "%m/%d/%Y").date()
-
+        kwargs["when"] = datetime.strptime(kwargs["when"], "%m/%d/%Y").date()
         return super().__init__(*args, **kwargs)
 
     def __str__(self) -> str:

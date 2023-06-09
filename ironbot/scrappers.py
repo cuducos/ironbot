@@ -1,13 +1,14 @@
 from importlib.metadata import version
 from os import path
 from tempfile import TemporaryDirectory
-from typing import Iterable, Iterator
+from typing import Iterable, Iterator, Optional
 from urllib.request import Request, urlopen, urlretrieve
 
 from camelot import read_pdf  # type: ignore
 from bs4 import BeautifulSoup
 
 from ironbot.models import Athlete, Event, Title
+from ironbot.parsers import EventParser
 
 
 URL = "https://www.ironman.com/pro-athletes"
@@ -47,10 +48,7 @@ def events(data: BeautifulSoup) -> Iterable[Event]:
             continue
 
         for row in pdf_table_rows(a["href"]):
-            try:
-                yield Event(*row)
-            except ValueError:
-                pass
+            yield from EventParser(row)
 
         return
 

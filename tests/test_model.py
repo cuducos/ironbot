@@ -29,6 +29,29 @@ def test_event_init():
     assert str(event) == "2023-08-20\tIronman Mont-Tremblant\t50k\t2\tOpen\tTBD"
 
 
+def test_event_with_missing_date():
+    with raises(KeyError):
+        Event(
+            name="Ironman Mont-Tremblant",
+            prize="50k",
+            slots="2",
+            registration="Open",
+            deadline="TBD",
+        )
+
+
+def test_event_with_missing_date_value():
+    with raises(TypeError):
+        Event(
+            when=None,
+            name="Ironman Mont-Tremblant",
+            prize="50k",
+            slots="2",
+            registration="Open",
+            deadline="TBD",
+        )
+
+
 def test_event_with_invalid_date():
     with raises(ValueError):
         Event(
