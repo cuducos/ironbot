@@ -1,7 +1,7 @@
 from importlib.metadata import version
 from os import path
 from tempfile import TemporaryDirectory
-from typing import Iterable, Iterator, Optional
+from typing import Iterable, Iterator
 from urllib.request import Request, urlopen, urlretrieve
 
 from camelot import read_pdf  # type: ignore

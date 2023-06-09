@@ -1,6 +1,5 @@
 from datetime import date
 
-from ironbot.models import Event
 from ironbot.parsers import EventParser
 
 
