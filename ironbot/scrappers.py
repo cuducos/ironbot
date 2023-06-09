@@ -59,14 +59,15 @@ def event_names(data: BeautifulSoup) -> Iterable[str]:
     yield from (a.text for a in data.find_all("a"))
 
 
-def start_list(data: BeautifulSoup, event_number: int) -> Iterable[Athlete]:
+def start_list(data: BeautifulSoup, event_name: str) -> Iterable[Athlete]:
+    links = (link for link in data.find_all("a") if link.text == event_name)
     try:
-        link = data.find_all("a")[event_number - 1]
-    except IndexError:
+        link = next(links)
+    except StopIteration:
         raise RuntimeError("Start list URL not found")
 
     for row in pdf_table_rows(link["href"]):
         try:
-            yield Athlete.from_row(row)
+            yield Athlete.from_row(event_name, row)
         except RuntimeError:
             pass

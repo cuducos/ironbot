@@ -26,7 +26,7 @@ class Event(Base):
     __tablename__ = "events"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, index=True)
     when = Column(Date)
     prize = Column(String)
     slots = Column(String)
@@ -56,15 +56,17 @@ class Athlete(Base):
     __tablename__ = "athletes"
 
     id = Column(Integer, primary_key=True)
-    bib = Column(String)
+    event_name = Column(String, index=True)
+    bib = Column(String, index=True)
     first_name = Column(String)
     last_name = Column(String)
     country = Column(String)
     category = Column(String)
 
     @classmethod
-    def from_row(cls, row: Iterator[str]) -> "Athlete":
+    def from_row(cls, event_name: str, row: Iterator[str]) -> "Athlete":
         fields = {col.name: "" for col in cls.__table__.columns if col.name != "id"}
+        fields["event_name"] = event_name
 
         for field in (field.strip() for field in row):
             if field.isnumeric() and not fields["bib"]:

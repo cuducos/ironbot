@@ -66,7 +66,7 @@ def test_event_with_invalid_date():
 
 def test_athlete_from_row():
     row = ("31", "WPRO", "BUCKINGHAM", "LUCY", "GBR", "F")
-    athlete = Athlete.from_row(row)
+    athlete = Athlete.from_row("Ironman", row)
     assert athlete.bib == "31"
     assert athlete.category == "WPRO"
     assert athlete.name == "LUCY BUCKINGHAM"
@@ -77,16 +77,16 @@ def test_athlete_from_row():
 def test_athlete_without_bib():
     row = ("WPRO", "BUCKINGHAM", "LUCY", "GBR", "F")
     with raises(RuntimeError):
-        Athlete.from_row(row)
+        Athlete.from_row("Ironman", row)
 
 
 def test_athlete_without_last_name():
     row = ("31", "WPRO", "LUCY")
     with raises(RuntimeError):
-        Athlete.from_row(row)
+        Athlete.from_row("Ironman", row)
 
 
 def test_athlete_without_first_name():
     row = ("31", "WPRO", "BUCKINGHAM")
     with raises(RuntimeError):
-        Athlete.from_row(row)
+        Athlete.from_row("Ironman", row)

@@ -36,7 +36,12 @@ def start_list(event_number: int) -> None:
     """Gets the start list for an Ironman professional race (use `start-lists`
     to get the event number)."""
     data = scrappers.load(Title.START_LIST)
-    for athlete in scrappers.start_list(data, event_number):
+    events = dict(enumerate(scrappers.event_names(data), 1))
+    event = events.get(event_number)
+    if not event:
+        raise RuntimeError(f"Event number {event_number} not found.")
+
+    for athlete in scrappers.start_list(data, event):
         print(athlete)
 
 
@@ -59,9 +64,9 @@ def init() -> None:
 
     print("==> Loading start lists…")
     data = scrappers.load(Title.START_LIST)
-    for number, name in enumerate(scrappers.event_names(data), 1):
+    for name in scrappers.event_names(data):
         print(f"==> Saving start list for {name}…")
-        count = db.save_athletes(scrappers.start_list(data, number))
+        count = db.save_athletes(scrappers.start_list(data, name))
         print(f"    Saved {count} athletes.")
 
 
