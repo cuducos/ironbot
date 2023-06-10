@@ -1,3 +1,6 @@
+from functools import partial
+from multiprocessing import Pool, cpu_count
+
 import typer
 from alembic import command as alembic
 
@@ -45,29 +48,37 @@ def start_list(event_number: int) -> None:
         print(athlete)
 
 
+def save_start_list(data, name):
+    settings = Settings()
+    db = Database(settings.database_url)
+    athletes = scrappers.start_list(data, name)
+    return db.save_athletes(athletes), name
+
+
 @db.command()
 def init() -> None:
     """Start a database for scratch. Requires DATABASE_URL environment
     variable. Run migrations, scrap events and start lists and persist them in
     the database."""
     settings = Settings()
+    db = Database(settings.database_url)
+
     print("==> Creating database and running migrations…")
     alembic.upgrade(settings.alembic, "head")
 
-    db = Database(settings.database_url)
     print("==> Loadign events…")
     data = scrappers.load(Title.CALENDAR)
 
-    print("==> Saving events…")
     count = db.save_events(scrappers.events(data))
-    print(f"    Saved {count} events.")
+    print(f"==> Saved {count} events.")
 
     print("==> Loading start lists…")
     data = scrappers.load(Title.START_LIST)
-    for name in scrappers.event_names(data):
-        print(f"==> Saving start list for {name}…")
-        count = db.save_athletes(scrappers.start_list(data, name))
-        print(f"    Saved {count} athletes.")
+    with Pool(processes=cpu_count()) as pool:
+        names = scrappers.event_names(data)
+        save_athletes = partial(save_start_list, str(data))
+        for result, name in pool.imap_unordered(save_athletes, names):
+            print(f"==> Saved {result} athletes from {name} start list.")
 
 
 @db.command()

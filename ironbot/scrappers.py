@@ -1,7 +1,7 @@
 from importlib.metadata import version
 from os import path
 from tempfile import TemporaryDirectory
-from typing import Iterable, Iterator
+from typing import Iterable, Iterator, Union
 from urllib.request import Request, urlopen, urlretrieve
 
 from camelot import read_pdf  # type: ignore
@@ -59,7 +59,10 @@ def event_names(data: BeautifulSoup) -> Iterable[str]:
     yield from (a.text for a in data.find_all("a"))
 
 
-def start_list(data: BeautifulSoup, event_name: str) -> Iterable[Athlete]:
+def start_list(data: Union[BeautifulSoup, str], event_name: str) -> Iterable[Athlete]:
+    if isinstance(data, str):
+        data = BeautifulSoup(data, features="html.parser")
+
     links = (link for link in data.find_all("a") if link.text == event_name)
     try:
         link = next(links)
