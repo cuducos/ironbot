@@ -9,7 +9,6 @@ from ironbot.db import Database
 from ironbot.models import Title
 from ironbot.settings import Settings
 
-
 db = typer.Typer()
 app = typer.Typer()
 app.add_typer(db, name="db", help="Manage the database")

@@ -1,9 +1,9 @@
 from contextlib import contextmanager
 from dataclasses import dataclass
+from typing import Iterable
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from typing import Iterable
 
 from ironbot.models import Athlete, Event
 

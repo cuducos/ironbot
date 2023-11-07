@@ -3,9 +3,8 @@ from enum import Enum
 from re import match
 from typing import Iterator
 
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Date, Integer, String
 from sqlalchemy.orm import DeclarativeBase
-
 
 CATEGORY = r"^[MWF](PRO)?$"
 

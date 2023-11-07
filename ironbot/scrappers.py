@@ -4,12 +4,11 @@ from tempfile import TemporaryDirectory
 from typing import Iterable, Iterator, Union
 from urllib.request import Request, urlopen, urlretrieve
 
-from camelot import read_pdf  # type: ignore
 from bs4 import BeautifulSoup
+from camelot import read_pdf  # type: ignore
 
 from ironbot.models import Athlete, Event, Title
 from ironbot.parsers import EventParser
-
 
 URL = "https://www.ironman.com/pro-athletes"
 CALENDAR = "PRO Schedule".lower()

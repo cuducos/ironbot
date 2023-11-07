@@ -29,7 +29,7 @@ packages = [
 ironbot = "ironbot.__main__:app"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.9,<3.13"
 alembic = "^1.11.1"
 beautifulsoup4 = "^4.12.2"
 camelot-py = "^0.11.0"
@@ -47,14 +47,15 @@ opencv-python = "^4.7.0.72"
 ipdb = "^0.13.13"
 ipython = "^8.13.2"
 pytest = "^7.3.1"
-pytest-black = "^0.3.12"
 pytest-mypy = "^0.10.3"
 pytest-ruff = "^0.1"
-pytest-watch = "^4.2.0"
 types-beautifulsoup4 = "^4.12.0.5"
 
 [tool.pytest.ini_options]
-addopts = "--black --mypy --ruff"
+addopts = "--mypy --ruff"
+
+[tool.ruff]
+extend-select = ["I"]
 
 [build-system]
 requires = ["poetry-core"]
